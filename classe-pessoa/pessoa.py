@@ -3,51 +3,32 @@ from datetime import datetime
 class Pessoa:
     ano_atual = int(datetime.strftime(datetime.now(), '%Y'))
 
-    def __init__(self, nome, idade, comendo=False, falando=False):
+    def __init__(self, nome, idade, peso, altura):
        self.nome = nome
        self.idade = idade
-       self.comendo = comendo
-       self.falando = falando
+       self.peso = peso
+       self.altura = altura
 
-    def falar(self, assunto):
-        if self.comendo:
-            print(f'{self.nome} não pode falar comendo.')
-            return
+    def envelhecendo(self, anos):
+        self.anos = anos
+        print(f'{self.nome} envelheceu ', anos, ' anos. A idade atual é', self.idade, 'anos')
 
-        if self.falando:
-            print(f'{self.nome} já está falando.')
-            return
+    def engordando(self,pesagem):
+        self.peso += pesagem
+        print(f'{self.nome} engordou',pesagem, 'kg. O peso atual é', (self.peso), 'kg')
 
-        print(f'{self.nome} está falando sobre {assunto}.')
-        self.falando = True
+    def emagrecendo(self,pesagem):
+        self.peso -= pesagem
+        print(f'{self.nome} emagreceu ', pesagem, 'kg. O peso atual é', (self.peso), 'kg')
 
-    def parar_falar(self):
-        if not self.falando:
-            print(f'{self.nome} não está falando')
-            return
-
-        print(f'{self.nome} parou de falar.')
-        self.falando = False
-
-    def comer(self, alimento):
-        if self.comendo:
-            print(f'{self.nome} já está comendo.')
-            return
-
-        if self.falando:
-            print(f'{self.nome} não pode comer falando.')
-            return
-
-        print(f'{self.nome} está comendo {alimento}.')
-        self.comendo = True
-
-    def parar_comer(self):
-        if not self.comendo:
-            print(f'{self.nome} não está comendo.')
-            return
-
-        print(f'{self.nome} parou de comer.')
-        self.comendo = False
+    def crescendo(self,anos):
+        self.idade += anos
+        if self.idade < 21:
+            crescimento = 0.05*anos
+            self.altura += crescimento
+            print(f'{self.nome} cresceu ', crescimento, 'm. A altura atual é', round(self.altura), 'm')
+        else:
+            print(f'{self.nome}', 'não cresceu')
 
     def get_ano_nascimento(self):
         return self.ano_atual - self.idade
